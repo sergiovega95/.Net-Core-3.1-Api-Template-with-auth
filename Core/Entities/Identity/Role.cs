@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Core.Entities.Identity
 {
-    public class User: IdentityUser<Guid>
-    {         
-        //You can add more properties and after do a migration
+    public class Role : IdentityRole<Guid>
+    {
     }
 }

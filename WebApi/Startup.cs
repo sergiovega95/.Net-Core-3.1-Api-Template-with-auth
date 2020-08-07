@@ -2,6 +2,7 @@ using Core.Entities.Identity;
 using Infrastructure.IdentityContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,10 +23,12 @@ namespace WebApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {          
-            //services.AddDbContext<IdentityContext>(options =>
-            //   options.UseSqlServer(
-            //       Configuration.GetConnectionString("DatabaseConnection")));
+        {
+            services.AddDbContext<DatabaseContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("DatabaseConnection")));
+
+
 
             services.AddControllers();
 
@@ -47,6 +50,11 @@ namespace WebApi
                 });
             
             });
+
+
+            services.AddIdentity<User, Role>()
+            .AddEntityFrameworkStores<DatabaseContext>()
+            .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 
+
 namespace WebApi
 {
     public class Startup
@@ -94,6 +95,8 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

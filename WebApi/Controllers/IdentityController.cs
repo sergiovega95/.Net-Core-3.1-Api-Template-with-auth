@@ -23,21 +23,25 @@ namespace WebApi.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly ILogger<IdentityController> _logger;
         public readonly IConfiguration _configuration;
 
-        public IdentityController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<IdentityController> logger, IConfiguration configuration)
+        public IdentityController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<IdentityController> logger, IConfiguration configuration,RoleManager<Role> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
 
         [AllowAnonymous]
         [HttpPost("RegisterUser")]
         public async Task<ObjectResult> RegisterUser (RequestIdentityRegister newUser)
         {
+           
+
             HttpStatusCode statusCode = HttpStatusCode.OK;         
             ResponseRegister response = new ResponseRegister();
 
@@ -132,7 +136,5 @@ namespace WebApi.Controllers
             return StatusCode((int)statusCode, response);
 
         }
-
-        
     }
 }
